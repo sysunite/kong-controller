@@ -18,7 +18,7 @@ Handler.init().catch((err) ->
 
 # Index page displaying info about this service.
 app.get('/', (req, res) ->
-	res.status(200).send("#{info.name} #{info.version}")
+  res.status(200).send("#{info.name} #{info.version}")
 )
 
 # Swagger page

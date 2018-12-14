@@ -32,24 +32,6 @@ paths:
           schema:
             type: string
 
-
-  /echo:
-    post:
-      tags:
-        - echo
-      summary: Perform an echo via post
-      description: ''
-      operationId: postEcho
-      produces:
-        - application/text
-      parameters:
-        - $ref: '#/parameters/reuseParam'
-      responses:
-        "200":
-          description: success
-          schema:
-            type: string
-
   /swagger:
     get:
       tags:
@@ -61,32 +43,6 @@ paths:
       operationId: getSwagger
       produces:
         - application/yaml
-      responses:
-        '200':
-          description: succes
-
-  /upload:
-    post:
-      description: >-
-        Upload image and resize
-      operationId: resizeImage
-      consumes:
-        - multipart/form-data
-      parameters:
-        - in: formData
-          name: file
-          type: file
-          description: >-
-            the image file
-        - in: formData
-          name: config
-          type: string
-          description: >-
-            config (fields for multipart are width, height)
-      produces:
-        - image/png
-        - image/jpeg
-        - image/gif
       responses:
         '200':
           description: succes
@@ -109,16 +65,3 @@ definitions:
         type: string
       documentId:
         type: string
-  DocumentContainer:
-    type: object
-    properties:
-      title:
-        type: string
-      containerId:
-        type: string
-      containerNumber:
-        type: string
-      versions:
-        type: array
-        items:
-          $ref: '#/definitions/Version'

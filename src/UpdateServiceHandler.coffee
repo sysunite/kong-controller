@@ -7,12 +7,9 @@ updateService = (kongService) ->
   # Update the heartbeat
   kongService.updateHeartbeat()
 
-  # Update the service at Kong and Parse
+  # TODO: Update the service at Kong and Parse
   # The swagger definition might have changed, reflect that at Kong and Parse
-  # currentSwagger = kongService.getSwagger()
-  # kongService.requestSwagger()
 
-  # TODO
-  return Promise.resolve()
+  Promise.resolve()
 
 module.exports = updateService
