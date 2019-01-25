@@ -29,7 +29,7 @@ app.get('/+swagger', (req, res) ->
 # Services apply by this endpoint to be registerd in Kong and Parse
 # The endpoint may be called many times
 app.get('/+apply', (req, res) ->
-  if ensure(req, res, 'serviceName', 'serviceUrl', 'swaggerUrl', 'cycle')
+  if ensure(req, res, 'serviceName', 'serviceUrl', 'swaggerUrl', 'swaggerVersion')
     Handler.apply(req.query).then(->
       res.status(200).send("Success")
     ).catch((err) ->

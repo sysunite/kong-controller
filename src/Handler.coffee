@@ -22,32 +22,32 @@ class Handler
 
   # Handle service registration
   apply: (params) ->
-    name       = params.serviceName   # Unique name of the service
-    url        = params.serviceUrl    # Url that Kong can reach for this service
-    swaggerUrl = params.swaggerUrl    # Url that this handler can reach for swagger
-    cycle      = params.cycle         # ID suggesting in which run cycle the caller is
+    name           = params.serviceName    # Unique name of the service
+    url            = params.serviceUrl     # Url that Kong can reach for this service
+    swaggerUrl     = params.swaggerUrl     # Url that this handler can reach for swagger
+    swaggerVersion = params.swaggerVersion # Swagger version to check if we need to update
 
     logger.debug("Received a request from service #{name} and url #{url}.")
     service = @kongServices[name]
 
     # 1. The service is totally new, neither in Kong nor ever requested here
     if not service?
-      service = @kongServices[name] = new KongService(name, url, swaggerUrl, cycle)
+      service = @kongServices[name] = new KongService(name, url, swaggerUrl, swaggerVersion)
       newService(service)
 
     # 2. The service exists in Kong, but the first time it applies here
     else if not service.url?
-      service.update(url, swaggerUrl, cycle)
+      service.update(url, swaggerUrl, swaggerVersion)
       updateService(service)
 
-    # 3. Service exists in Kong and already applied before, check cycle if changes are required
-    else if service.different(cycle)
-      service.setCycle(cycle)
+    # 3. Service exists in Kong and already applied before, check swagger version if changes are required
+    else if service.different(swaggerVersion)
+      service.setSwaggerVersion(swaggerVersion)
       updateService(service)
 
     # 4. No change needed
     else
-      logger.debug("No change needed due to same cycle for service #{name}")
+      logger.debug("No change needed due to same swagger version for service #{name}")
       Promise.resolve()
 
 

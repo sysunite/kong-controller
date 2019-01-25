@@ -2,7 +2,7 @@ Swagger = require('../util/Swagger')
 Kong    = require('./Kong')
 
 class KongService
-  constructor:(@name, @url, @swaggerUrl, @cycle) ->
+  constructor:(@name, @url, @swaggerUrl, @swaggerVersion) ->
     @routes = []
     @heartbeat = new Date()
 
@@ -11,16 +11,16 @@ class KongService
       (new KongService(s.name) for s in services)
     )
 
-  update: (url, swaggerUrl, cycle) ->
+  update: (url, swaggerUrl, swaggerVersion) ->
     @url = url
     @swaggerUrl = swaggerUrl
-    @cycle = cycle
+    @swaggerVersion = swaggerVersion
 
-  different: (cycle) ->
-    @cycle isnt cycle
+  different: (swaggerVersion) ->
+    @swaggerVersion isnt swaggerVersion
 
-  setCycle: (cycle) ->
-    @cycle = cycle
+  setSwaggerVersion: (swaggerVersion) ->
+    @swaggerVersion = swaggerVersion
 
   updateHeartbeat: ->
     @heartbeat = new Date()
