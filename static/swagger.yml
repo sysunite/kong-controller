@@ -1,0 +1,67 @@
+swagger: '2.0'
+info:
+  description: Manages services and routes at Kong
+  version: 0.1.0
+  title: kong-controller
+  contact:
+    email: mohamad@sysunite.com
+  license:
+    name: GPL-3.0
+    url: 'https://opensource.org/licenses/GPL-3.0'
+basePath: /
+tags:
+  - name: applicationInfo
+    description: Information about the application
+schemes:
+  - http
+paths:
+  /:
+    get:
+      tags:
+        - applicationInfo
+      summary: Get application and version info
+      description: ''
+      operationId: getApplicationInfo
+      produces:
+        - application/text
+      parameters:
+        - $ref: '#/parameters/reuseParam'
+      responses:
+        '200':
+          description: succes
+          schema:
+            type: string
+
+  /swagger:
+    get:
+      tags:
+        - applicationInfo
+      summary: Swagger definition of the service
+      description: >-
+        Returns the swagger file for the service, which specifies all its
+        capabilities
+      operationId: getSwagger
+      produces:
+        - application/yaml
+      responses:
+        '200':
+          description: succes
+
+# Explample of reusing parameters on swagger 2.0
+parameters:
+  reuseParam:      # Can be referenced via '#/parameters/reuseParam'
+    name: name
+    in: query
+    description: Just a dummy query parameter
+    required: false   # inside weaver as plugin, setting this to true forces to check if the parameters are in the request or not
+    type: string
+
+
+definitions:
+  Version:
+    type: object
+    properties:
+      versionNumber:
+        type: string
+      documentId:
+        type: string

@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+lib
+output
+npm-debug.log
+config/local.coffee
+data/*.json
+allDocs.json
+logs/*.log
+volumes/
+*.swp
+tmp/*
+!**/.keep
